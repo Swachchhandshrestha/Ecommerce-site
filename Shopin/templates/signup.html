@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="main">
+      <div class="container">
+        <ul class="breadcrumb">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="">Store</a></li>
+            <li class="active">Standart forms</li>
+        </ul>
+        <!-- BEGIN SIDEBAR & CONTENT -->
+        <div class="row margin-bottom-40">
+          <!-- BEGIN SIDEBAR -->
+          <div class="sidebar col-md-3 col-sm-5">
+
+          </div>
+          <!-- END SIDEBAR -->
+
+          <!-- BEGIN CONTENT -->
+          <div class="col-md-9 col-sm-7">
+            <h1>Standart forms</h1>
+            <div class="content-form-page">
+              <form role="form" method="POST" action="{% url 'home:signup' %}" class="form-horizontal form-without-legend">
+                {% csrf_token %}
+
+                  {% if messages %}
+                  <ul>
+                  {% for message in messages %}
+                      <div class="btn btn-primary">{{ message }}</div>
+                  {% endfor %}
+                  </ul>
+                  {% endif %}
+
+
+                  <div class="form-group">
+                  <label class="col-lg-2 control-label" for="username">User Name <span class="require">*</span></label>
+                  <div class="col-lg-8">
+                    <input type="text" id="username" name="username" class="form-control">
+                  </div>
+                </div>
+                  <div class="form-group">
+                  <label class="col-lg-2 control-label" for="first_name">First Name <span class="require">*</span></label>
+                  <div class="col-lg-8">
+                    <input type="text" id="first_name" name="first_name" class="form-control">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-lg-2 control-label" for="last_name">Last Name <span class="require">*</span></label>
+                  <div class="col-lg-8">
+                    <input type="text" id="last_name" name="last_name" class="form-control">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-lg-2 control-label" for="email">E-Mail <span class="require">*</span></label>
+                  <div class="col-lg-8">
+                    <input type="text" id="email" name="email" class="form-control">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-lg-2 control-label" for="password">password <span class="require">*</span></label>
+                  <div class="col-lg-8">
+                    <input type="password" id="password" name="password" class="form-control">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-lg-2 control-label" for="password1">confirm password <span class="require">*</span></label>
+                  <div class="col-lg-8">
+                    <input type="password" id="password1" name="password1" class="form-control">
+                  </div>
+                </div>
+
+
+
+
+                <div class="row">
+                  <div class="col-lg-8 col-md-offset-2 padding-left-0 padding-top-20">
+                    <input class="btn btn-primary" name="submit" value="signup" type="submit">
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <!-- END CONTENT -->
+        </div>
+        <!-- END SIDEBAR & CONTENT -->
+      </div>
+    </div>
+
+{% endblock %}

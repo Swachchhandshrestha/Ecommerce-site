@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<!--<![endif]-->
+
+<!-- Head BEGIN -->
+<head>
+  <meta charset="utf-8">
+  <title>Metronic Shop UI</title>
+
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <meta content="Metronic Shop UI description" name="description">
+  <meta content="Metronic Shop UI keywords" name="keywords">
+  <meta content="keenthemes" name="author">
+
+  <meta property="og:site_name" content="-CUSTOMER VALUE-">
+  <meta property="og:title" content="-CUSTOMER VALUE-">
+  <meta property="og:description" content="-CUSTOMER VALUE-">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="-CUSTOMER VALUE-"><!-- link to image for socio -->
+  <meta property="og:url" content="-CUSTOMER VALUE-">
+
+  <link rel="shortcut icon" href="favicon.ico">
+
+  <!-- Fonts START -->
+  <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|PT+Sans+Narrow|Source+Sans+Pro:200,300,400,600,700,900&amp;subset=all" rel="stylesheet" type="text/css">
+  <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900&amp;subset=all" rel="stylesheet" type="text/css"><!--- fonts for slider on the index page -->  
+  <!-- Fonts END -->
+
+  <!-- Global styles START -->          
+  <link href="{%static 'plugins/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+  <link href="{%static 'plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <!-- Global styles END --> 
+   
+  <!-- Page level plugin styles START -->
+  <link href="{%static 'pages/css/animate.css' %}" rel="stylesheet">
+  <link href="{%static 'plugins/fancybox/source/jquery.fancybox.css' %}" rel="stylesheet">
+  <link href="{%static 'plugins/owl.carousel/assets/owl.carousel.css' %}" rel="stylesheet">
+  <!-- Page level plugin styles END -->
+
+  <!-- Theme styles START -->
+  <link href="{%static 'pages/css/components.css' %}" rel="stylesheet">
+  <link href="{%static 'pages/css/slider.css' %}" rel="stylesheet">
+  <link href="{%static 'pages/css/style-shop.css' %}" rel="stylesheet" type="text/css">
+  <link href="{%static 'corporate/css/style.css' %}" rel="stylesheet">
+  <link href="{%static 'corporate/css/style-responsive.css' %}" rel="stylesheet">
+  <link href="{%static 'corporate/css/themes/red.css' %}" rel="stylesheet" id="style-color">
+  <link href="{%static 'corporate/css/custom.css' %}" rel="stylesheet">
+  <!-- Theme styles END -->
+</head>
+<!-- Head END -->
+
+<!-- Body BEGIN -->
+<body class="ecommerce">
+
+
+    <!-- BEGIN TOP BAR -->
+    <div class="pre-header">
+        <div class="container">
+            <div class="row">
+                <!-- BEGIN TOP BAR LEFT PART -->
+                <div class="col-md-6 col-sm-6 additional-shop-info">
+                    <ul class="list-unstyled list-inline">
+                        <li><i class=""></i><span></span></li>
+                        <!-- BEGIN CURRENCIES -->
+                        <li class="shop-currencies">
+                            <a href="javascript:void(0);"></a>
+                            <a href="javascript:void(0);"></a>
+                            <a href="javascript:void(0);" class="current"></a>
+                        </li>
+                        <!-- END CURRENCIES -->
+                        <!-- BEGIN LANGS -->
+                        <li class="langs-block">
+                            <a href="javascript:void(0);" class="current"> </a>
+                            <div class="langs-block-others-wrapper"><div class="langs-block-others">
+                              <a href="javascript:void(0);"></a>
+                              <a href="javascript:void(0);"></a>
+                              <a href="javascript:void(0);"></a>
+                            </div></div>
+                        </li>
+                        <!-- END LANGS -->
+                    </ul>
+                </div>
+                <!-- END TOP BAR LEFT PART -->
+                <!-- BEGIN TOP BAR MENU -->
+                <div class="col-md-6 col-sm-6 additional-nav">
+                    <ul class="list-unstyled list-inline pull-right">
+                        {% if user.is_authenticated %}
+                        <li><a href="/">{{ user.username }}</a></li>
+                        <li><a href="{% url 'home:checkout' %}">Checkout</a></li>
+                        <li><a href="{% url 'logout' %}">Log Out</a></li>
+                        {% else %}
+                        <li><a href="{% url 'login' %}">Log In</a></li>
+                        <li><a href="{% url 'home:signup' %}">Sign up</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+                <!-- END TOP BAR MENU -->
+            </div>
+        </div>        
+    </div>
+    <!-- END TOP BAR -->
+
+    <!-- BEGIN HEADER -->
+    <div class="header">
+      <div class="container">
+        <a class="site-logo" href="/"><img src="{%static 'corporate/img/logos/logo-shop-red.png'%}" alt="Metronic Shop UI"></a>
+
+        <a href="javascript:void(0);" class="mobi-toggler"><i class="fa fa-bars"></i></a>
+
+        <!-- BEGIN CART -->
+        <div class="top-cart-block">
+            {%for orders in object.items.all %}
+          <div class="top-cart-info">
+            <a href="{{ orders.item }}" class="top-cart-info-count">{{ orders.quantity }}</a>
+            <a href="{{ orders.item }}" class="top-cart-info-value">Rs{{ orders.get_total_price }}</a>
+          </div>
+            {% endfor %}
+         <i class="fa fa-shopping-cart" >  </i>
+                        
+          <div class="top-cart-content-wrapper">
+            <div class="top-cart-content">
+                {% for orders in object.items.all %}
+              <ul class="scroller" style="height: 250px;">
+                <li>
+                  <a href="shop-item.html"><img src="../../{{orders.item.image.url }}" alt="{{ orders.item.image.url }}" width="37" height="34"></a>
+                  <span class="cart-content-count">x {{ orders.quantity }}</span>
+                  <strong><a href="shop-item.html">{{ orders.item.title }}</a></strong>
+                  <em>${{ orders.get_total_price }}</em>
+                  <a href="javascript:void(0);" class="del-goods">&nbsp;</a>
+                </li>
+
+              </ul>
+              <div class="text-right">
+                <a href="shop-shopping-cart.html" class="btn btn-default">View Cart</a>
+                <a href="shop-checkout.html" class="btn btn-primary">Checkout</a>
+              </div>
+                {% endfor %}
+            </div>
+          </div>
+        </div>
+        <!--END CART -->
+
+        <!-- BEGIN NAVIGATION -->
+        <div class="header-navigation">
+          <ul>
+            <li class="dropdown dropdown-megamenu">
+              <a class="dropdown-toggle" data-toggle="dropdown" data-target="/" href="/">
+                Laptops
+                
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <div class="header-navigation-content">
+                    <div class="row">
+                      <div class="col-md-4 header-navigation-col">
+                        <h4>Dell</h4>
+                        <ul>
+                            <li>Inspiron</li>
+                          <li>XPS</li>
+                          <li>Vostro</li>
+                            <li>Alienware</li>
+                        </ul>
+                      </div>
+                      <div class="col-md-4 header-navigation-col">
+                        <h4>Acer</h4>
+                        <ul>
+                            <li>Aspire E series</li>
+                          <li>Aspire F series</li>
+                          <li>Aspire M series</li>
+                            <li>Aspire One</li>
+                        </ul>
+                      </div>
+                      <div class="col-md-4 header-navigation-col">
+                        <h4>Lenevo</h4>
+                        <ul>
+                              <li>Thinkpad</li>
+                          <li>Yoga</li>
+                          <li>Legion</li>
+                            <li>Gaming Laptop</li>
+                        </ul>
+
+
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </li>
+            <li><a href="{% url 'home:mobile' %} ">Mobile Phones</a></li>
+
+            
+            <li><a href="http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes&amp;utm_source=download&amp;utm_medium=banner&amp;utm_campaign=metronic_frontend_freebie" target="_blank">About</a></li>
+
+            <!-- BEGIN TOP SEARCH -->
+            <li class="menu-search">
+              <span class="sep"></span>
+              <i class="fa fa-search search-btn"></i>
+              <div class="search-box">
+                <form action="#">
+                  <div class="input-group">
+                    <input type="text" placeholder="Search" class="form-control">
+                    <span class="input-group-btn">
+                      <button class="btn btn-primary" type="submit">Search</button>
+                    </span>
+                  </div>
+                </form>
+              </div> 
+            </li>
+            <!-- END TOP SEARCH -->
+          </ul>
+        </div>
+        <!-- END NAVIGATION -->
+      </div>
+    </div>
+    <!-- Header END -->
+
+
+{% block content %}
+
+
+{% endblock %}
+    
+    
+    <!-- BEGIN BRANDS -->
+    <div class="brands">
+      <div class="container">
+            <div class="owl-carousel owl-carousel6-brands">
+                {% for brand in brands %}
+              <a href="{{ brand.image.url }}"><img src=" {{ brand.image.url }}" alt="{{ brand.title }}" title="{{ brand.title }}"></a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- END BRANDS -->
+
+    <!-- BEGIN STEPS -->
+    <div class="steps-block steps-block-red">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 steps-block-col">
+            <i class="fa fa-truck"></i>
+            <div>
+              <h2>Free shipping</h2>
+              <em>Express delivery withing 3 days</em>
+            </div>
+            <span>&nbsp;</span>
+          </div>
+          <div class="col-md-4 steps-block-col">
+            <i class="fa fa-gift"></i>
+            <div>
+              <h2>Daily Gifts</h2>
+              <em>3 Gifts daily for lucky customers</em>
+            </div>
+            <span>&nbsp;</span>
+          </div>
+          <div class="col-md-4 steps-block-col">
+            <i class="fa fa-phone"></i>
+            <div>
+              <h2>Service</h2>
+              <em>24/7 customer care available</em>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END STEPS -->
+
+    <!-- BEGIN PRE-FOOTER -->
+    <div class="pre-footer">
+      <div class="container">
+        <div class="row">
+          <!-- BEGIN BOTTOM ABOUT BLOCK -->
+          <div class="col-md-3 col-sm-6 pre-footer-col">
+            <h2>About us</h2>
+            <p>This is an E-commerce site in which user can add to their cart of their prefered items and can checkout using their online paymaent or cash on delivery service. </p>
+            <p>Our customer care service is 24/7 hrs available. We are glad to help you out with our best service quick as possible.</p>
+          </div>
+          <!-- END BOTTOM ABOUT BLOCK -->
+          <!-- BEGIN BOTTOM INFO BLOCK -->
+          <div class="col-md-3 col-sm-6 pre-footer-col">
+            <h2>Information</h2>
+            <ul class="list-unstyled">
+              <li><i class="fa fa-angle-right"></i> <a href="javascript:;">Delivery Information</a></li>
+              <li><i class="fa fa-angle-right"></i> <a href="javascript:;">Customer Service</a></li>
+              <li><i class="fa fa-angle-right"></i> <a href="javascript:;">Order Tracking</a></li>
+              <li><i class="fa fa-angle-right"></i> <a href="javascript:;">Shipping &amp; Returns</a></li>
+              <li><i class="fa fa-angle-right"></i> <a href="contacts.html">Contact Us</a></li>
+              <li><i class="fa fa-angle-right"></i> <a href="javascript:;">Careers</a></li>
+              <li><i class="fa fa-angle-right"></i> <a href="javascript:;">Payment Methods</a></li>
+            </ul>
+          </div>
+          <!-- END INFO BLOCK -->
+
+          <!-- BEGIN TWITTER BLOCK -->
+          <!--<div class="col-md-3 col-sm-6 pre-footer-col">
+            <h2 class="margin-bottom-0">Latest Tweets</h2>
+            <a class="twitter-timeline" href="https://twitter.com/twitterapi" data-tweet-limit="2" data-theme="dark" data-link-color="#57C8EB" data-widget-id="455411516829736961" data-chrome="noheader nofooter noscrollbar noborders transparent">Loading tweets by @keenthemes...</a>      
+          </div>-->
+          <!-- END TWITTER BLOCK -->
+
+          <!-- BEGIN BOTTOM CONTACTS -->
+          <div class="col-md-3 col-sm-6 pre-footer-col">
+            <h2>Our Contacts</h2>
+            <address class="margin-bottom-40">
+              Lalitpur<br>
+              Mangal Baazar<br>
+              Phone: 55266455<br>
+              Email: <a href="mailto:swachchhandshrestha11@gmail.com">swachchhandshrestha11@gmail.com</a><br>
+            </address>
+          </div>
+          <!-- END BOTTOM CONTACTS -->
+        </div>
+        <hr>
+        <div class="row">
+          <!-- BEGIN SOCIAL ICONS -->
+          <div class="col-md-6 col-sm-6">
+            <ul class="social-icons">
+              <li><a class="facebook" data-original-title="facebook" href="javascript:;"></a></li>
+              <li><a class="twitter" data-original-title="twitter" href="javascript:;"></a></li>
+              <li><a class="googleplus" data-original-title="googleplus" href="javascript:;"></a></li>
+              <li><a class="linkedin" data-original-title="linkedin" href="javascript:;"></a></li>
+              <li><a class="youtube" data-original-title="youtube" href="javascript:;"></a></li>
+              <li><a class="skype" data-original-title="skype" href="javascript:;"></a></li>
+            </ul>
+          </div>
+          <!-- END SOCIAL ICONS -->
+          <!-- BEGIN NEWLETTER -->
+          <div class="col-md-6 col-sm-6">
+            <div class="pre-footer-subscribe-box pull-right">
+              <h2>Email</h2>
+              <form action="#">
+                <div class="input-group">
+                  <input type="text" placeholder="youremail@mail.com" class="form-control">
+                  <span class="input-group-btn">
+                    <button class="btn btn-primary" type="submit">Subscribe</button>
+                  </span>
+                </div>
+              </form>
+            </div> 
+          </div>
+          <!-- END NEWLETTER -->
+        </div>
+      </div>
+    </div>
+    <!-- END PRE-FOOTER -->
+
+    <!-- BEGIN FOOTER -->
+    <div class="footer">
+      <div class="container">
+        <div class="row">
+          <!-- BEGIN COPYRIGHT -->
+          <div class="col-md-4 col-sm-4 padding-top-10">
+
+          </div>
+          <!-- END COPYRIGHT -->
+
+          <!-- BEGIN POWERED -->
+          <div class="col-md-4 col-sm-4 text-right">
+
+          </div>
+          <!-- END POWERED -->
+        </div>
+      </div>
+    </div>
+    <!-- END FOOTER -->
+
+    <!-- BEGIN fast view of a product -->
+
+    <div id="product-pop-up" style="display: none; width: 700px;">
+
+
+            <div class="product-page product-pop-up">
+                                                  {% for item in items %}
+
+              <div class="row">
+
+
+
+                <div class="col-md-6 col-sm-6 col-xs-3">
+                  <div class="product-main-image">
+                    <img src="{{ item.image.url }}" alt="{{ item.title }}" class="img-responsive">
+                  </div>
+
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-9">
+                  <h2> {{ item.title }}</h2>
+                  <div class="price-availability-block clearfix">
+                    <div class="price">
+                      <strong><span>Rs</span>{{ item.price }}</strong>
+                    </div>
+
+                  </div>
+                  <div class="description">
+                    <p>{{ item.description }}</p>
+                  </div>
+
+                </div>
+
+                <div class="sticker sticker-sale"></div>
+              </div>
+
+
+                                  {% endfor %}
+
+
+            </div>
+
+    </div>
+
+
+    <!-- END fast view of a product -->
+
+    <!-- Load javascripts at bottom, this will reduce page load time -->
+    <!-- BEGIN CORE PLUGINS (REQUIRED FOR ALL PAGES) -->
+    <!--[if lt IE 9]>
+    <script src="{%static 'plugins/respond.min.js' %}"></script>  
+    <![endif]-->
+    <script src="{%static 'plugins/jquery.min.js' %}" type="text/javascript"></script>
+    <script src="{%static 'plugins/jquery-migrate.min.js' %}" type="text/javascript"></script>
+    <script src="{%static 'plugins/bootstrap/js/bootstrap.min.js' %}" type="text/javascript"></script>      
+    <script src="{%static 'plugins/jquery-slimscroll/jquery.slimscroll.min.js' %}" type="text/javascript"></script>
+    <!-- END CORE PLUGINS -->
+
+    <!-- BEGIN PAGE LEVEL JAVASCRIPTS (REQUIRED ONLY FOR CURRENT PAGE) -->
+    <script src="{%static 'plugins/fancybox/source/jquery.fancybox.pack.js' %}" type="text/javascript"></script><!-- pop up -->
+    <script src="{%static 'plugins/owl.carousel/owl.carousel.min.js' %}" type="text/javascript"></script><!-- slider for products -->
+    <script src='{%static 'plugins/zoom/jquery.zoom.min.js' %}' type="text/javascript"></script><!-- product zoom -->
+    <script src="{%static 'plugins/bootstrap-touchspin/bootstrap.touchspin.js' %}" type="text/javascript"></script><!-- Quantity -->
+
+    <script src="{%static 'corporate/scripts/layout.js' %}" type="text/javascript"></script>
+    <script src="{%static 'pages/scripts/bs-carousel.js' %}" type="text/javascript"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function() {
+            Layout.init();    
+            Layout.initOWL();
+            Layout.initImageZoom();
+            Layout.initTouchspin();
+            Layout.initTwitter();
+        });
+    </script>
+    <!-- END PAGE LEVEL JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>
